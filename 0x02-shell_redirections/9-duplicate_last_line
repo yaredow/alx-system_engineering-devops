@@ -1,2 +1,2 @@
 #!/bin/bash
-tail iacta | uniq -D 
+cat ./iacta | tail --lines=1 >> iacta
