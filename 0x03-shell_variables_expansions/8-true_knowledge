@@ -1,2 +1,2 @@
 #!/bin/bash
-export TRUEKNOWLEDGE=10.44 | 128*TRUEKNOWLEDGE | cat  e
+echo ((TRUEKNOWLEDGE+128))
