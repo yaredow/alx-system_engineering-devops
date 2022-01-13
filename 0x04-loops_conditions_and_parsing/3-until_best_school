@@ -3,5 +3,5 @@
 i=0
 until [ $((i++)) -gt 9 ]; 
 do
-	echo "Holberton School";
+	echo "Best School";
 done
