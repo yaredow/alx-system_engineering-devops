@@ -2,5 +2,5 @@
 # This script is displaying "Holberton School" 10 times
 i=0
 until [ $((i++)) -gt 9 ]; do
-	echo Holberton School
+	echo "Holberton School"
 done
