@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # file information
-file="holbertonschool"
+file="school"
 
 if [ ! -e "$file" ]; then
 	echo "$file" file does not exist
