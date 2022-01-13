@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # This script is displaying "luck stuff" 10 times
-i=0
 count=0
 
 while [ $count -lt 10 ]
