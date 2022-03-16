@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# configure a brand new NGINX server
+
+apt-get -y update
+apt-get -y install nginx
+
+echo "301 Moved Permanently" > /var/www/html/index.html
+
+sed -i "/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;" /etc/nginx/sites-available/default
+
+ufw allow 'Nginx HTTP'
+service nginx restart
