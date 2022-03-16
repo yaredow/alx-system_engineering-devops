@@ -13,7 +13,7 @@ mkdir /etc/nginx/html
 touch /etc/nginx/html/index.html
 echo "Hello World!" > /etc/nginx/html/index.html
 touch /etc/nginx/html/404.html
-echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
+echo "301 Moved Permanently" > /etc/nginx/html/404.html
 
 printf %s "server {
     listen 80;
