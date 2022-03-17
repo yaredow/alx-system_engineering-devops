@@ -1,13 +1,15 @@
-#Creates Sets up client SSH configuration file
-file_line { 'ssh_config':
-    ensure   => present,
-    path     => '/etc/ssh/ssh_config',
-    line     => 'PasswordAuthentication no',
-    multiple => 'true'
+#  make changes to configuration file
+
+file { '/etc/ssh/ssh_config':
+  ensure => present,
 }
-file_line { 'ssh_config_2':
-    ensure   => present,
-    path     => '/etc/ssh/ssh_config',
-    line     => 'IdentityFile ~/.ssh/holberton',
-    multiple => 'true'
+-> exec { 'Declare identity file':
+    command => 'echo "    IdentityFile ~/.ssh/school" >>  /etc/ssh/ssh_config',
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 }
+
+exec { 'Turn off passwd auth':
+    command => 'echo "    PasswordAuthentication no" >>  /etc/ssh/ssh_config',
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+}
+
