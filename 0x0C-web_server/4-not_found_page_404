@@ -1,16 +1,21 @@
-#!/usr/bin/env bash
-# Installs Nginx with the following configurations:
-#+    Listens on port 80.
-#+    Returns a page containing "Holberton School" when queried
-#+     at the root with a curl GET request.
-# Configures /redirect_me as a "301 Moved Permanently".
-# Includes a custom 404 page containing "Ceci n'est pas une page".
-apt-get -y install nginx
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
-new_string="\n\t location /redirect_me {\n\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \n\t}\n"
-sed -i "53s+.*+$new_string+" /etc/nginx/sites-available/default
-mkdir /var/www/error
-echo "Ceci n'est pas une page" > /var/www/error/custom_404.html
-string_to_be_inserted="\n\terror_page 404 /custom_404.html;\n\n\t\tlocation = /custom_404.html {\n\t\troot /var/www/error;\n\t\tinternal;\n\t}\n"
-sed -i "47s+.*+$string_to_be_inserted+" /etc/nginx/sites-available/default
-service nginx restart
+# Puppet manifest to install nginx
+package { 'nginx':
+  ensure => installed,
+}
+
+file_line { 'aaaaa':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
+}
+
+file { '/var/www/html/index.html':
+  content => 'Hello World!',
+}
+
+service { 'nginx':
+  ensure  => running,
+  require => Package['nginx'],
+}
+
