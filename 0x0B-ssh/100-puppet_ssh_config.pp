@@ -12,4 +12,3 @@ exec { 'Turn off passwd auth':
     command => 'echo "    PasswordAuthentication no" >>  /etc/ssh/ssh_config',
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 }
-
