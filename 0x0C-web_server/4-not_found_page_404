@@ -1,21 +1,15 @@
-# Puppet manifest to install nginx
-package { 'nginx':
-  ensure => installed,
-}
+#!/usr/bin/env bash
+# Configure your Nginx server to have a custom 404 page
 
-file_line { 'aaaaa':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
-}
+sudo apt-get -y install nginx
+# 1 Return a page with 'Hello World' text
+sudo bash -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 
-file { '/var/www/html/index.html':
-  content => 'Hello World!',
-}
+# redirects /redirect_me to another page
+redirect="\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
+sudo sed -i "53s|.*|$redirect|" /etc/nginx/sites-enabled/default
 
-service { 'nginx':
-  ensure  => running,
-  require => Package['nginx'],
-}
-
+# creates custom 404 html page contaning a string
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/error404.html
+sudo sed -i "47s|.*| \n\terror_page 404 /error404.html;\n|" /etc/nginx/sites-enabled/default
+sudo /etc/init.d/nginx restart
