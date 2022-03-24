@@ -1,8 +1,27 @@
 #!/usr/bin/env bash
-# to dig the domain and if relevant, sub
-if [ $# -eq 1 ]; then
-	domains="www.$1 lb-01.$1 web-01.$1 web-02.$1"
+# prints subdomains and their respective IP addresses 
+
+func () {
+ if [ "$#" -ge 2 ]
+ then
+  subdomain="$2.$1"
+  record=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$4}')
+  ip=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$5}')
+  echo "The subdomain $2 is a"$record" record and points to"$ip""
+ else
+  declare -a subdomains=("www" "lb-01" "web-01" "web-02")
+  for x in "${subdomains[@]}"; do
+   subdomain="$x.$1"
+   record=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$4}')
+   ip=$(dig "$subdomain" | grep -A1 'ANSWER SECTION:' | awk '{print$5}')
+   echo "The subdomain $x is a"$record" record and points to"$ip""
+ done 
+ fi
+}
+
+if [ "$#" -ge 2 ]
+ then
+ func $1 $2
 else
-	domains="$2.$1"
+ func $1
 fi
-dig $domains | awk '/ANSWER SECTION:/ { getline; split($1, a, "."); print "The subdomain", a[1], "is a", $4, "record and points to", $5}'
