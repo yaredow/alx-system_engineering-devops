@@ -1,0 +1,35 @@
+Requirements:
+
+You must add:
+2 servers
+1 web server (Nginx)
+1 application server
+1 load-balancer (HAproxy)
+1 set of application files (your code base)
+1 database (MySQL)
+
+Visual Representation:
+https://imgur.com/p0vL9hL.png
+
+
+For every additional element, why you are adding it
+An extra server is added to allow more services and connections, supports to keep the system in working condition and to reduce the dependency of resources on single server.
+
+What distribution algorithm your load balancer is configured with and how it works
+Round Robin.
+Meaning the queries requested are distributed to every server sequentially one after another. And after sending the request to the last server, the algorithm startarts from the first server. This will bring on average and approximately, to a server load distribution of 50% on each of the two servers configuration.
+There by balancing the load, which is the whole point of using a load balancer.
+
+Is your load-balancer enabling an Active-Active or Active-Passive setup, explain the difference between both
+Active-Active
+An active-active cluster is typically made up of at least two nodes, both actively running the same kind of service simultaneously.
+An active-passive cluster also consists of at least two nodes. However, as the name "active-passive" implies, not all nodes are going to be active. In the case of two nodes, for example, if the first node is already active, the second node must be passive or on standby incase the first node is unable to serve.
+
+How a database Primary-Replica (Master-Slave) cluster works
+A database Primary-Replica (Master-Replica) is a mechanism which enables data of one database server (the master) to be replicated or to be copied to one or more computers or database servers (the slaves), in order all users share the same level of information. This process leads to a distributed database in which users can quickly access data without interfering with each other.
+
+
+What is the difference between the Primary node and the Replica node in regard to the application?
+The primary node serves as the keeper of information, here the “real” data is kept, then writing only happens here. On the other hand, reading only occurs in the replica or slave node.
+The master database serves as the keeper of information, so to speak. The true data is kept at the master database, thus writing only occurs there. Reading, on the other hand, is only done in the slave.
+

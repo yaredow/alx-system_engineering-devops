@@ -1,0 +1,29 @@
+Requirements:
+
+You must add:
+2 servers
+1 web server (Nginx)
+1 application server
+1 load-balancer (HAproxy)
+1 set of application files (your code base)
+1 database (MySQL)
+3 firewalls
+1 SSL certificate to serve www.foobar.com over HTTPS
+3 monitoring clients (data collector for Sumologic or other monitoring services)
+
+Visual Representation:
+https://imgur.com/k4AYOvp.png
+
+What are firewalls for?
+a firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules.
+
+Why is the traffic served over HTTPS?
+With a HTTPS connection, all communications are securely encrypted. This means that even if somebody managed to break into the connection, they would not be able decrypt any of the data which passes between you and the website.
+
+What monitoring is used for?
+Getting data about systems and making sure they are not beind overloaded and are working as expected.
+
+How the monitoring tool is collecting data?
+By observing the systems and providing a number of key metrics
+
+Explain what to do if you want to monitor your web server QPS
